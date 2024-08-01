@@ -11,35 +11,40 @@ def edit_activities():
     pass
 
 def track_hours():
+    #Put all available acitivities in a list
     activity_list = []
-    valid = True
-    while valid:
-        for activity in activity_log:
-            print(f'{activity['activity']}: {activity['hours']} hours\n')
-        choice = input('Enter choice of activity: ').lower()
-
-        for activity in activity_log:
+    for activity in activity_log:
             activity_list.append((activity['activity']).lower())
 
-        if choice not in activity_list:
-            print('Invalid choice of activity.')
-            valid = False
-
+    #Print the log of activities and their hours
+    print('List of available activities:')
+    for activity in activity_log:
+        print(f'\n{activity['activity']}: {activity['hours']} hours\n')
+    
+    #Ask user for input
+    choice = input('Enter choice of activity: ').lower()
+    if choice not in activity_list:
+        print('Invalid choice of activity.')
+        return
+    else:
+        #Ask user for input
         hours_input = int(input('Enter the number of hours you\'d like to add: '))
-        if hours_input <= 0:
+        if not(hours_input > 0):
             print('Invalid number.')
-            valid = False
-        
-        for activity in enumerate(activity_log):
-            
-
-
+            return
+        else:
+            #Add the hours to the activity choice
+            for log in activity_log:
+                if (log['activity']).lower() == choice:
+                    log['hours'] += hours_input
+            print(f'Successfully added {hours_input} to {choice}')
 
 #Display welcome message
 activity_log = [
     {'activity' : 'Name',
-     'hours' : 0}
-    ]
+     'hours' : 0
+    }
+]
 is_running = True
 while is_running:
     print('-' * 52)
@@ -57,7 +62,11 @@ while is_running:
     elif choice == '2':
         edit_activities()
     elif choice == '3':
-        track_hours()
+        if len(activity_log) == 0:
+            print('\nThere are currently no logged activities. Please add in \'Edit Activities.\'')
+            is_running = False
+        else:
+            track_hours()
     elif choice == '4':
         print('\nThank you! Have a nice day!')
         is_running = False

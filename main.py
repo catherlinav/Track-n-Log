@@ -8,7 +8,34 @@ def display_log():
             print(f'{activity['activity']}: {activity['hours']} hours\n')
 
 def edit_activities():
-    pass
+    option = input('Would you like to add or delete an activity (a/d)? ').lower()
+    if option == 'a':
+        add_choice = input('Enter name of activity you would like to add: ')
+        new_log = {'activity': add_choice,
+                   'hours': 0.0
+                   }
+        activity_log.append(new_log)
+        print(f'\nSuccesfully added new activity: {add_choice}')
+        return
+    elif option == 'd':
+        if len(activity_log) == 0:
+            print('You don\'t have any activities to delete.\n')
+            return
+        else:
+            print('List of available activities:')
+            for activity in activity_log:
+                print(f'\n{activity['activity']}: {activity['hours']} hours\n')
+            
+            delete_choice = input('Enter name of activity you would like to delete: ')
+            for index, log in enumerate(activity_log):
+                if log['activity'].lower() == delete_choice.lower():
+                    activity_log.pop(index)
+                    print(f'\nSuccessfully removed the activity: {delete_choice}')
+                    return
+                    
+    else:
+        print('Invalid option.\n')
+        return
 
 def track_hours():
     #Put all available acitivities in a list
@@ -19,32 +46,29 @@ def track_hours():
     #Print the log of activities and their hours
     print('List of available activities:')
     for activity in activity_log:
-        print(f'\n{activity['activity']}: {activity['hours']} hours\n')
+        print(f'{activity['activity']}: {activity['hours']} hours\n')
     
     #Ask user for input
     choice = input('Enter choice of activity: ').lower()
     if choice not in activity_list:
-        print('Invalid choice of activity.')
+        print('\nInvalid choice of activity.')
         return
     else:
         #Ask user for input
-        hours_input = int(input('Enter the number of hours you\'d like to add: '))
+        hours_input = float(input('Enter the number of hours you\'d like to add: '))
         if not(hours_input > 0):
-            print('Invalid number.')
+            print('\nInvalid number.')
             return
         else:
             #Add the hours to the activity choice
             for log in activity_log:
                 if (log['activity']).lower() == choice:
                     log['hours'] += hours_input
-            print(f'Successfully added {hours_input} to {choice}')
+            print(f'\nSuccessfully added {hours_input} to {choice}')
+            return
 
 #Display welcome message
-activity_log = [
-    {'activity' : 'Name',
-     'hours' : 0
-    }
-]
+activity_log = []
 is_running = True
 while is_running:
     print('-' * 52)

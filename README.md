@@ -1,2 +1,2 @@
 # hour-tracker
- project that tracks the hours put in to activities
+ Project that tracks user's activities. Users can log hours, edit, and view them.

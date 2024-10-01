@@ -35,8 +35,6 @@ def add_hours(act, hours): # add hours to existing activity
                   {'hours': hours, 'title': act.title})
 
 act1 = Activity('Coding')
-add_hours(act1, 123)
-add_hours(act1, 123)
 
 
 conn.close() # close connection

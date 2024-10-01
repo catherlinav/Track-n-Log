@@ -1,6 +1,6 @@
 # class for Activity
 
 class Activity:
-    def __init__(self, title, hours):
+    def __init__(self, title):
         self.title = title
-        self.hours = hours
+        self.hours = 0
